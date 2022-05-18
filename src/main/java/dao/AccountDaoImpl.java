@@ -17,6 +17,8 @@ public class AccountDaoImpl implements AccountDao{
 			Statement stmt = connect.createStatement();
 			String query = "SELECT balance FROM account_details WHERE user_id="+accountsPojo.getUserId();                                                        
 			ResultSet resultSet = stmt.executeQuery(query);
+			resultSet.next();
+			accountsPojo.setBalance(resultSet.getDouble(1));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

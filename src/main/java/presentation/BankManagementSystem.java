@@ -164,7 +164,9 @@ public class BankManagementSystem {
 				break;
 			case 3:
 				//fetch balance from account_details
-				System.out.println("Your current balance is " + accountService.viewBalance(newAccount));
+				newAccount.setUserId(newUser.getUserId());
+				accountService.viewBalance(newAccount);
+				System.out.println("Your current balance is "+ newAccount.getBalance() );
 				System.out.println("Returning to accounts menu...     ");
 				System.out.println("                                  ");
 				accountsMenu();
