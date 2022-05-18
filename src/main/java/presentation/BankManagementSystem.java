@@ -87,6 +87,7 @@ public class BankManagementSystem {
 				userAccountPojo = userService.createUser(newUser);
 			} catch (CreateUserException e1) {
 				System.out.println(e1.getMessage());
+				break;
 			}
 				System.out.println("Account successfully created!");
 				System.out.println("                             ");
@@ -107,6 +108,7 @@ public class BankManagementSystem {
 				validatePojo = userService.validateUser(newUser);
 			} catch (UserValidationException e) {
 				System.out.println(e.getMessage());
+				break;
 			}
 				if(validatePojo.getUserId() != 0) {
 					System.out.println("Login successful!        ");
@@ -151,6 +153,7 @@ public class BankManagementSystem {
 						accountService.withdraw(newAccount);
 					} catch (WithdrawlException e) {
 						System.out.println(e.getMessage());
+						break;
 					}
 					System.out.println(withdrawAmount + " withdrawn from account");
 					System.out.println("Returning to accounts menu...            ");
@@ -176,6 +179,7 @@ public class BankManagementSystem {
 				accountService.deposit(newAccount);
 			} catch (DepositException e) {
 				System.out.println(e.getMessage());
+				break;
 			}
 				System.out.println(depositAmount + " deposited to your account");
 				System.out.println("Returning to accounts menu...             ");
