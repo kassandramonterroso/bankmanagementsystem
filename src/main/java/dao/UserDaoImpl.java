@@ -15,8 +15,12 @@ public class UserDaoImpl implements UserDao {
 		try {
 			connect = DBUtil.dbConnection();
 			Statement stmt = connect.createStatement();
-			String query = "INSERT INTO user_login(username, password, first_name, last_name) VALUES('"+UserAccountPojo.getUsername()+"', '"+UserAccountPojo.getPassword()+"', '"+UserAccountPojo.getFirstName()+"', '"+UserAccountPojo.getLastName()+"')";                                                        
-			int rowsAffected = stmt.executeUpdate(query);
+			String query = "INSERT INTO user_login(username, password, first_name, last_name) VALUES('"+UserAccountPojo.getUsername()+"', '"+UserAccountPojo.getPassword()+"', '"+UserAccountPojo.getFirstName()+"', '"+UserAccountPojo.getLastName()+"')";                                                    
+			int rowsAffected = stmt.executeUpdate(query, stmt.RETURN_GENERATED_KEYS);
+			ResultSet key = stmt.getGeneratedKeys();
+			key.next();
+			String queryTwo = "INSERT INTO account_details(user_id) VALUES('"+key.getInt(1)+"')";
+			rowsAffected = stmt.executeUpdate(queryTwo);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
