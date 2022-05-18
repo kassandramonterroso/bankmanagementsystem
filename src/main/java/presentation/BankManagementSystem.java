@@ -43,11 +43,10 @@ public class BankManagementSystem {
 		System.out.println("__________Accounts Menu__________");
 		System.out.println("                                 ");
 		System.out.println("Options:                         ");
-		System.out.println("        (1) Create account       ");
-		System.out.println("        (2) Withdraw from account");
-		System.out.println("        (3) Deposit to account   ");
-		System.out.println("        (4) View balance         ");
-		System.out.println("        (5) Exit Accounts Menu   ");
+		System.out.println("        (1) Withdraw from account");
+		System.out.println("        (2) Deposit to account   ");
+		System.out.println("        (3) View balance         ");
+		System.out.println("        (4) Exit Accounts Menu   ");
 		System.out.println("                                 ");
 		System.out.println("Please select an option:         ");
 		accountsMenuSwitch();
@@ -95,18 +94,19 @@ public class BankManagementSystem {
 				System.out.println("Password:                ");
 				newUser.setPassword(input.nextLine());
 				System.out.println("                         ");
-				UserAccountPojo validatePojo = userService.createUser(newUser);
-				if(validatePojo == null) {
-					System.out.println("Login unsuccessful       ");
+				UserAccountPojo validatePojo = null;
+				validatePojo = userService.validateUser(newUser);
+				if(validatePojo.getUserId() != 0) {
+					System.out.println("Login successful!        ");
+					System.out.println("                         ");
+					accountsMenu();
+					break;
+				}else {
+					System.out.println("Login unsuccessful...    ");
 					System.out.println("                         ");
 					System.out.println("Returning to main menu...");
 					System.out.println("                         ");
 					mainMenu();
-					break;
-				}else {
-					System.out.println("Login successful!        ");
-					System.out.println("                         ");
-					accountsMenu();
 					break;
 				}
 			case 3:
@@ -128,14 +128,6 @@ public class BankManagementSystem {
 		int option = input.nextInt();
 		switch(option) {
 			case 1:
-				//creating account by activating it
-				accountService.addAccount(newAccount);
-				System.out.println("Account activated!           ");
-				System.out.println("Returning to accounts menu...");
-				System.out.println("                             ");
-				accountsMenu();
-				break;
-			case 2:
 				//withdraw from account, no overdraft
 				System.out.println("Please enter an amount to withdraw:      ");
 				Double withdrawAmount = input.nextDouble();
@@ -153,7 +145,7 @@ public class BankManagementSystem {
 					accountsMenu();
 				}
 				break;		
-			case 3:
+			case 2:
 				//deposit to account
 				System.out.println("Please enter an amount to deposit:        ");
 				Double depositAmount = input.nextDouble();
@@ -163,20 +155,20 @@ public class BankManagementSystem {
 				System.out.println("                                          ");
 				accountsMenu();
 				break;
-			case 4:
+			case 3:
 				//fetch balance from account_details
 				System.out.println("Your current balance is " + accountService.viewBalance(newAccount));
 				System.out.println("Returning to accounts menu...     ");
 				System.out.println("                                  ");
 				accountsMenu();
 				break;
-			case 5:
+			case 4:
 				System.out.println("Returning to main menu...    ");
 				System.out.println("                             ");
 				mainMenu();
 				break;
 			default:
-				System.out.println("Please select a valid option.              ");
+				System.out.println("Please select a valid option.             ");
 				accountsMenuSwitch();
 				break;
 		}

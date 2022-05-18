@@ -10,21 +10,7 @@ import model.AccountsPojo;
 public class AccountDaoImpl implements AccountDao{
 
 	@Override
-	public AccountsPojo addAccount(AccountsPojo accountsPojo) {
-		Connection connect;
-		try {
-			connect = DBUtil.dbConnection();
-			Statement stmt = connect.createStatement();
-			String query = "INSERT INTO account_details(balance, is_active) VALUES(0.0, TRUE) WHERE user_id="+accountsPojo.getUserId();                                                        
-			int rowsAffected = stmt.executeUpdate(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return accountsPojo;
-	}
-
-	@Override
-	public double viewBalance(AccountsPojo accountsPojo) {
+	public AccountsPojo viewBalance(AccountsPojo accountsPojo) {
 		Connection connect;
 		try {
 			connect = DBUtil.dbConnection();
@@ -34,37 +20,39 @@ public class AccountDaoImpl implements AccountDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return accountsPojo.getBalance();
+		return accountsPojo;
 	}
 
 	@Override
-	public double withdraw(AccountsPojo accountsPojo, double withdrawlAmount) {
-		double currentBalance = accountsPojo.getBalance();
+	public AccountsPojo withdraw(AccountsPojo accountsPojo, double withdrawlAmount) {
+		double currentBalance = accountsPojo.getBalance() - withdrawlAmount;
+		accountsPojo.setBalance(currentBalance);
 		Connection connect;
 		try {
 			connect = DBUtil.dbConnection();
 			Statement stmt = connect.createStatement();
-			String query = "UPDATE account_details SET balance="+ (currentBalance - withdrawlAmount) + "WHERE user_id="+accountsPojo.getUserId();                                                        
+			String query = "UPDATE account_details SET balance="+accountsPojo.getBalance()+ "WHERE user_id="+accountsPojo.getUserId();                                                        
 			int rowsAffected = stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return accountsPojo.getBalance();
+		return accountsPojo;
 	}
 
 	@Override
-	public double deposit(AccountsPojo accountsPojo, double depositAmount) {
-		double currentBalance = accountsPojo.getBalance();
+	public AccountsPojo deposit(AccountsPojo accountsPojo, double depositAmount) {
+		double currentBalance = accountsPojo.getBalance() + depositAmount;
+		accountsPojo.setBalance(currentBalance);	
 		Connection connect;
 		try {
 			connect = DBUtil.dbConnection();
 			Statement stmt = connect.createStatement();
-			String query = "UPDATE account_details SET balance"+ (currentBalance + depositAmount) + "WHERE user_id="+accountsPojo.getUserId();                                                        
+			String query = "UPDATE account_details SET balance"+accountsPojo.getBalance()+ "WHERE user_id="+accountsPojo.getUserId();                                                        
 			int rowsAffected = stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return accountsPojo.getBalance();
+		return accountsPojo;
 	}
 
 }

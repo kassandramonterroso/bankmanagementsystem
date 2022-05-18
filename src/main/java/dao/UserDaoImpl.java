@@ -15,7 +15,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			connect = DBUtil.dbConnection();
 			Statement stmt = connect.createStatement();
-			String query = "INSERT INTO user_login(username, password, first_name, last_name) VALUES('"+UserAccountPojo.getUsername()+"', '"+UserAccountPojo.getPassword()+"', '"+UserAccountPojo.getFirstName()+"', '"+UserAccountPojo.getLastName()+"')";                                                    
+			String query = "INSERT INTO user_login(username, password, first_name, last_name) VALUES('"+userAccountPojo.getUsername()+"', '"+userAccountPojo.getPassword()+"', '"+userAccountPojo.getFirstName()+"', '"+userAccountPojo.getLastName()+"')";                                                    
 			int rowsAffected = stmt.executeUpdate(query, stmt.RETURN_GENERATED_KEYS);
 			ResultSet key = stmt.getGeneratedKeys();
 			key.next();
@@ -34,11 +34,11 @@ public class UserDaoImpl implements UserDao {
 		try {
 			connect = DBUtil.dbConnection();
 			Statement stmt = connect.createStatement();
-			String query = "SELECT username, password FROM user_login WHERE username="+userAccountPojo.getUsername()+"AND password="+userAccountPojo.getPassword();                                                        
+			String query = "SELECT * FROM user_login WHERE username= '"+ userAccountPojo.getUsername()+ "' AND password= '"+userAccountPojo.getPassword()+"'";                                                       
 			ResultSet resultSet = stmt.executeQuery(query);
-			if(resultSet.next() == false) {
-				
-			} return null;
+			if(resultSet.next()) {
+				userAccountPojo.setUserId(resultSet.getInt(1));
+			}; 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

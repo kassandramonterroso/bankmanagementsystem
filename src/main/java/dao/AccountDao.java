@@ -3,16 +3,13 @@ package dao;
 import model.AccountsPojo;
 
 public interface AccountDao {
-
-	//Method to create bank account
-	AccountsPojo addAccount(AccountsPojo accountsPojo);
 		
 	//Method to view balance
-	double viewBalance(AccountsPojo accountsPojo);
+	AccountsPojo viewBalance(AccountsPojo accountsPojo);
 		
 	//Method to withdraw money from account
-	double withdraw(AccountsPojo accountsPojo, double withdrawlAmount);
+	AccountsPojo withdraw(AccountsPojo accountsPojo, double withdrawlAmount);
 		
 	//Method to deposit money to account
-	double deposit(AccountsPojo accountsPojo, double depositAmount);
+	AccountsPojo deposit(AccountsPojo accountsPojo, double depositAmount);
 }

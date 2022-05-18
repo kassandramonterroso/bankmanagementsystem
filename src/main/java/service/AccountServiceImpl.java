@@ -13,24 +13,19 @@ public class AccountServiceImpl implements AccountService {
 	public AccountServiceImpl() {
 		accountDao = new AccountDaoImpl();
 	}
-			
+	
 	@Override
-	public AccountsPojo addAccount(AccountsPojo accountsPojo) {
-		return accountDao.addAccount(accountsPojo);
-	}
-
-	@Override
-	public double viewBalance(AccountsPojo accountsPojo) {
+	public AccountsPojo viewBalance(AccountsPojo accountsPojo) {
 		return accountDao.viewBalance(accountsPojo);
 	}
 
 	@Override
-	public double withdraw(AccountsPojo accountsPojo, double withdrawlAmount) {
+	public AccountsPojo withdraw(AccountsPojo accountsPojo, double withdrawlAmount) {
 		return accountDao.withdraw(accountsPojo, withdrawlAmount);
 	}
 
 	@Override
-	public double deposit(AccountsPojo accountsPojo, double depositAmount) {
+	public AccountsPojo deposit(AccountsPojo accountsPojo, double depositAmount) {
 		return accountDao.deposit(accountsPojo, depositAmount);
 	}
 
