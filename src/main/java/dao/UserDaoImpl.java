@@ -34,11 +34,15 @@ public class UserDaoImpl implements UserDao {
 		try {
 			connect = DBUtil.dbConnection();
 			Statement stmt = connect.createStatement();
-			String query = "SELECT username, password FROM user_login WHERE user_Id="+userAccountPojo.getUserId();                                                        
+			String query = "SELECT username, password FROM user_login WHERE username="+userAccountPojo.getUsername()+"AND password="+userAccountPojo.getPassword();                                                        
 			ResultSet resultSet = stmt.executeQuery(query);
+			if(resultSet.next() == false) {
+				
+			} return null;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return userAccountPojo;
 		
 		

@@ -90,22 +90,23 @@ public class BankManagementSystem {
 			case 2:
 				System.out.println("Username:                ");
 				input.nextLine();
-				String userLogin = input.nextLine();
+				newUser.setUsername(input.nextLine());
 				System.out.println("                         ");
 				System.out.println("Password:                ");
-				String userPass = input.nextLine();
+				newUser.setPassword(input.nextLine());
 				System.out.println("                         ");
-				if(userLogin.equals(newUser.getUsername()) && userPass.equals(newUser.getPassword())) {
-					System.out.println("Login successful!        ");
-					System.out.println("                         ");
-					accountsMenu();
-					break;
-				} else {
+				UserAccountPojo validatePojo = userService.createUser(newUser);
+				if(validatePojo == null) {
 					System.out.println("Login unsuccessful       ");
 					System.out.println("                         ");
 					System.out.println("Returning to main menu...");
 					System.out.println("                         ");
 					mainMenu();
+					break;
+				}else {
+					System.out.println("Login successful!        ");
+					System.out.println("                         ");
+					accountsMenu();
 					break;
 				}
 			case 3:
@@ -171,7 +172,8 @@ public class BankManagementSystem {
 				break;
 			case 5:
 				System.out.println("Returning to main menu...    ");
-				mainMenuSwitch();
+				System.out.println("                             ");
+				mainMenu();
 				break;
 			default:
 				System.out.println("Please select a valid option.              ");
