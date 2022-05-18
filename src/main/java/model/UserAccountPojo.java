@@ -9,7 +9,7 @@ public class UserAccountPojo {
 	private static String lastName;
 	
 	//Creating a parameterized constructor
-	public UserAccountPojo(int userId, String username, String password) {
+	public UserAccountPojo(int userId, String username, String password, String firstName, String lastName) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -20,7 +20,6 @@ public class UserAccountPojo {
 	
 	
 	public UserAccountPojo() {
-
 	}
 
 

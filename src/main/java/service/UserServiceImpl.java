@@ -1,7 +1,7 @@
 package service;
 
-import dao.AccountDao;
-import dao.AccountDaoImpl;
+import Exception.CreateUserException;
+import Exception.UserValidationException;
 import dao.UserDao;
 import dao.UserDaoImpl;
 import model.UserAccountPojo;
@@ -16,12 +16,12 @@ public class UserServiceImpl implements UserService{
 	}
 		
 	@Override
-	public UserAccountPojo createUser(UserAccountPojo userAccountPojo) {	
+	public UserAccountPojo createUser(UserAccountPojo userAccountPojo) throws CreateUserException {	
 		return userDao.createUser(userAccountPojo);
 	}
 
 	@Override
-	public UserAccountPojo validateUser(UserAccountPojo userAccountPojo) {
+	public UserAccountPojo validateUser(UserAccountPojo userAccountPojo) throws UserValidationException {
 		return userDao.validateUser(userAccountPojo);
 	}
 

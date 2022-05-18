@@ -5,12 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Exception.CreateUserException;
+import Exception.UserValidationException;
 import model.UserAccountPojo;
 
 public class UserDaoImpl implements UserDao {
 
 	@Override
-	public UserAccountPojo createUser(UserAccountPojo userAccountPojo) {
+	public UserAccountPojo createUser(UserAccountPojo userAccountPojo) throws CreateUserException {
 		Connection connect;
 		try {
 			connect = DBUtil.dbConnection();
@@ -29,7 +31,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public UserAccountPojo validateUser(UserAccountPojo userAccountPojo) {
+	public UserAccountPojo validateUser(UserAccountPojo userAccountPojo) throws UserValidationException {
 		Connection connect;
 		try {
 			connect = DBUtil.dbConnection();

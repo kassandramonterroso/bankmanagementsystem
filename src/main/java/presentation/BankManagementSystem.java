@@ -2,6 +2,10 @@ package presentation;
 
 import java.util.Scanner;
 
+import Exception.CreateUserException;
+import Exception.DepositException;
+import Exception.UserValidationException;
+import Exception.WithdrawlException;
 import model.UserAccountPojo;
 import model.AccountsPojo;
 import service.UserService;
@@ -79,7 +83,11 @@ public class BankManagementSystem {
 				String pass = input.nextLine();
 				newUser.setPassword(pass);
 				UserAccountPojo userAccountPojo = null;
+			try {
 				userAccountPojo = userService.createUser(newUser);
+			} catch (CreateUserException e1) {
+				System.out.println(e1.getMessage());
+			}
 				System.out.println("Account successfully created!");
 				System.out.println("                             ");
 				System.out.println("Returning to main menu...    ");
@@ -95,7 +103,11 @@ public class BankManagementSystem {
 				newUser.setPassword(input.nextLine());
 				System.out.println("                         ");
 				UserAccountPojo validatePojo = null;
+			try {
 				validatePojo = userService.validateUser(newUser);
+			} catch (UserValidationException e) {
+				System.out.println(e.getMessage());
+			}
 				if(validatePojo.getUserId() != 0) {
 					System.out.println("Login successful!        ");
 					System.out.println("                         ");
@@ -135,7 +147,11 @@ public class BankManagementSystem {
 				Double currentBal = newAccount.getBalance();
 				if(currentBal >= withdrawAmount) {
 					newAccount.setBalance(currentBal - withdrawAmount);
-					accountService.withdraw(newAccount);
+					try {
+						accountService.withdraw(newAccount);
+					} catch (WithdrawlException e) {
+						System.out.println(e.getMessage());
+					}
 					System.out.println(withdrawAmount + " withdrawn from account");
 					System.out.println("Returning to accounts menu...            ");
 					System.out.println("                                         ");
@@ -156,7 +172,11 @@ public class BankManagementSystem {
 				double newBalance = currentBalance + depositAmount;
 				newAccount.setUserId(newUser.getUserId());
 				newAccount.setBalance(newBalance);	
+			try {
 				accountService.deposit(newAccount);
+			} catch (DepositException e) {
+				System.out.println(e.getMessage());
+			}
 				System.out.println(depositAmount + " deposited to your account");
 				System.out.println("Returning to accounts menu...             ");
 				System.out.println("                                          ");

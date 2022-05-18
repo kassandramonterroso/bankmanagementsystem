@@ -1,8 +1,9 @@
 package service;
 
+import Exception.DepositException;
+import Exception.WithdrawlException;
 import dao.AccountDao;
 import dao.AccountDaoImpl;
-import dao.UserDao;
 import model.AccountsPojo;
 
 public class AccountServiceImpl implements AccountService {
@@ -20,12 +21,12 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public AccountsPojo withdraw(AccountsPojo accountsPojo) {
+	public AccountsPojo withdraw(AccountsPojo accountsPojo) throws WithdrawlException {
 		return accountDao.withdraw(accountsPojo);
 	}
 
 	@Override
-	public AccountsPojo deposit(AccountsPojo accountsPojo) {
+	public AccountsPojo deposit(AccountsPojo accountsPojo) throws DepositException {
 		return accountDao.deposit(accountsPojo);
 	}
 
