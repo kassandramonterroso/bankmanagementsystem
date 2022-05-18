@@ -24,9 +24,7 @@ public class AccountDaoImpl implements AccountDao{
 	}
 
 	@Override
-	public AccountsPojo withdraw(AccountsPojo accountsPojo, double withdrawlAmount) {
-		double currentBalance = accountsPojo.getBalance() - withdrawlAmount;
-		accountsPojo.setBalance(currentBalance);
+	public AccountsPojo withdraw(AccountsPojo accountsPojo) {
 		Connection connect;
 		try {
 			connect = DBUtil.dbConnection();
@@ -40,14 +38,12 @@ public class AccountDaoImpl implements AccountDao{
 	}
 
 	@Override
-	public AccountsPojo deposit(AccountsPojo accountsPojo, double depositAmount) {
-		double currentBalance = accountsPojo.getBalance() + depositAmount;
-		accountsPojo.setBalance(currentBalance);	
+	public AccountsPojo deposit(AccountsPojo accountsPojo) {
 		Connection connect;
 		try {
 			connect = DBUtil.dbConnection();
 			Statement stmt = connect.createStatement();
-			String query = "UPDATE account_details SET balance"+accountsPojo.getBalance()+ "WHERE user_id="+accountsPojo.getUserId();                                                        
+			String query = "UPDATE account_details SET balance="+accountsPojo.getBalance()+ "WHERE user_id="+accountsPojo.getUserId();                                                        
 			int rowsAffected = stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -8,8 +8,8 @@ public interface AccountDao {
 	AccountsPojo viewBalance(AccountsPojo accountsPojo);
 		
 	//Method to withdraw money from account
-	AccountsPojo withdraw(AccountsPojo accountsPojo, double withdrawlAmount);
+	AccountsPojo withdraw(AccountsPojo accountsPojo);
 		
 	//Method to deposit money to account
-	AccountsPojo deposit(AccountsPojo accountsPojo, double depositAmount);
+	AccountsPojo deposit(AccountsPojo accountsPojo);
 }

@@ -130,10 +130,13 @@ public class BankManagementSystem {
 			case 1:
 				//withdraw from account, no overdraft
 				System.out.println("Please enter an amount to withdraw:      ");
+				newAccount.setUserId(newUser.getUserId());
 				Double withdrawAmount = input.nextDouble();
-				if(withdrawAmount <= newAccount.getBalance()) {
-					accountService.withdraw(newAccount, withdrawAmount);
-					System.out.println(withdrawAmount + " withdrawed from account");
+				Double currentBal = newAccount.getBalance();
+				if(currentBal >= withdrawAmount) {
+					newAccount.setBalance(currentBal - withdrawAmount);
+					accountService.withdraw(newAccount);
+					System.out.println(withdrawAmount + " withdrawn from account");
 					System.out.println("Returning to accounts menu...            ");
 					System.out.println("                                         ");
 					accountsMenu();
@@ -149,7 +152,11 @@ public class BankManagementSystem {
 				//deposit to account
 				System.out.println("Please enter an amount to deposit:        ");
 				Double depositAmount = input.nextDouble();
-				accountService.deposit(newAccount, depositAmount);
+				Double currentBalance = newAccount.getBalance();
+				double newBalance = currentBalance + depositAmount;
+				newAccount.setUserId(newUser.getUserId());
+				newAccount.setBalance(newBalance);	
+				accountService.deposit(newAccount);
 				System.out.println(depositAmount + " deposited to your account");
 				System.out.println("Returning to accounts menu...             ");
 				System.out.println("                                          ");

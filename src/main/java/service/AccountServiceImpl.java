@@ -20,13 +20,13 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public AccountsPojo withdraw(AccountsPojo accountsPojo, double withdrawlAmount) {
-		return accountDao.withdraw(accountsPojo, withdrawlAmount);
+	public AccountsPojo withdraw(AccountsPojo accountsPojo) {
+		return accountDao.withdraw(accountsPojo);
 	}
 
 	@Override
-	public AccountsPojo deposit(AccountsPojo accountsPojo, double depositAmount) {
-		return accountDao.deposit(accountsPojo, depositAmount);
+	public AccountsPojo deposit(AccountsPojo accountsPojo) {
+		return accountDao.deposit(accountsPojo);
 	}
 
 }
